@@ -1,25 +1,20 @@
-const User = require('./User');
-const Location = require('./Location');
-const Trips = require('./Trips');
+// import models
+const Product = require('./Product');
+const Category = require('./Category');
+const Tag = require('./Tag');
+const ProductTag = require('./ProductTag');
 
-User.hasMany(Trips, {
-  foreignKey: 'traveller_id',
-  onDelete: 'CASCADE',
-});
+// Products belongsTo Category
 
-// A reader can have many books
-User.hasMany(Trips, {
-  foreignKey: 'location_id',
-  onDelete: 'CASCADE',
-});
+// Categories have many Products
 
-// A book belongs to a single reader
-Location.belongsToMany(Trips, {
-  foreignKey: 'reader_id',
-});
+// Products belongToMany Tags (through ProductTag)
 
-Trips.belongsTo(Reader, {
-  foreignKey: 'reader_id',
-});
+// Tags belongToMany Products (through ProductTag)
 
-module.exports = { User, Location, Trips };
+module.exports = {
+  Product,
+  Category,
+  Tag,
+  ProductTag,
+};
