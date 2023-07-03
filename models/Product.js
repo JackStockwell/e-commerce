@@ -16,7 +16,7 @@ Product.init(
       autoIncrement: true,
     },
     product_name: {
-      type: DataTypes.VARCHAR(30),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     price: {
@@ -38,7 +38,6 @@ Product.init(
         key: 'id'
       }
     }
-      
   },
   {
     sequelize,
