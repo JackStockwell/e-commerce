@@ -7,7 +7,20 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', async (req, res) => {
   try {
     const productData = await Product.findAll({
-      include: [{model: Category}]
+      attributes: ['product_name', 'price', 'stock'],
+      include: [
+        { 
+          model: Category,
+          attributes: ['category_name']
+        },
+        { 
+          model: Tag,
+          attributes: ['tag_name'],
+          through: {
+            attributes: []
+          }
+        }
+      ],
     });
     res.status(200).json(productData)
   } catch (err) {
@@ -19,7 +32,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const productData = await Product.findByPk(req.params.id, {
-      include: [{model: Category}]
+      include: [{model: Category}, {model: Tag}]
     });
     res.status(200).json(productData);
 
@@ -112,8 +125,20 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+router.delete('/:id', async (req, res) => {
+  try {
+    const productData = await Product.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+    
+    if (!productData) {
+      return res.status(404).json({message: "No matching ID found!"})
+    }
+  } catch (err) {
+    res.status(500).json(err)
+  }
 });
 
 module.exports = router;
