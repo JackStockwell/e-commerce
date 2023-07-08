@@ -4,25 +4,30 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // The `/api/products` endpoint
 
 // get all products
+
+// GET method request, will retrieve all Product data from the db.
 router.get('/', async (req, res) => {
   try {
     const productData = await Product.findAll({
-      attributes: ['product_name', 'price', 'stock'],
+      // Only show relevant infomation to the response.
+      attributes: ['id', 'product_name', 'price', 'stock'],
+      // Include models Category and Tag
       include: [
-        { 
+        {
           model: Category,
           attributes: ['category_name']
         },
         { 
           model: Tag,
           attributes: ['tag_name'],
-          through: {
-            attributes: []
-          }
         }
       ],
     });
+
+    // Success response
     return res.status(200).json(productData);
+
+  // Error catch
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -41,8 +46,10 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ message: 'Error 404, no id found!'})
       return;
     }
+    // Success response
     return res.status(200).json(productData);
-    
+  
+  // Error catch
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -55,6 +62,7 @@ router.post('/', (req, res) => {
       product_name: "Basketball",
       price: 200.00,
       stock: 3,
+      category: 1,
       tagIds: [1, 2, 3, 4]
     }
   */
@@ -136,6 +144,12 @@ router.delete('/:id', async (req, res) => {
     if (!productData) {
       return res.status(404).json({message: "No matching ID found!"})
     }
+    
+    // Success response
+    return res.status(200).json({
+      message: "Successfully deleted product"
+    });
+  // Error Catch
   } catch (err) {
     res.status(500).json(err)
   }

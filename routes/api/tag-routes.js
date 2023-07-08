@@ -7,6 +7,7 @@ const { Tag, Product, ProductTag } = require('../../models');
 // GET Request, will retrieve all Tag table data from the DB.
 router.get('/', async (req, res) => {
   try {
+    // Finds all records, with the product model included
     const tagsData = await Tag.findAll({
       include: Product
     });
@@ -19,7 +20,7 @@ router.get('/', async (req, res) => {
 // GET request, will retrieve a record from the db with a specified id.
 router.get('/:id', async (req, res) => {
   try {
-    // Finds the record in the db with the params id
+    // Finds the record in the db with the params id, includes product model.
     const tagData = await Tag.findByPk(req.params.id, {
       include: Product
     });
@@ -63,7 +64,10 @@ router.put('/:id', async (req, res) => {
     }
   */
   try {
-    const tagData = await Tag.update(req.body, {
+    const tagData = await Tag.update({
+      tag_name: req.body.tag_name
+    }, 
+    {
       where: {
        id: req.params.id,
       }
