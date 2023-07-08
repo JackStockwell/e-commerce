@@ -7,7 +7,9 @@ const { Tag, Product, ProductTag } = require('../../models');
 // GET Request, will retrieve all Tag table data from the DB.
 router.get('/', async (req, res) => {
   try {
-    const tagsData = await Tag.findAll();
+    const tagsData = await Tag.findAll({
+      include: Product
+    });
     return res.status(200).json(tagsData);
   } catch (err) {
     return res.status(500).json(err);
@@ -18,7 +20,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     // Finds the record in the db with the params id
-    const tagData = await Tag.findByPk(req.params.id);
+    const tagData = await Tag.findByPk(req.params.id, {
+      include: Product
+    });
     return res.status(200).json(tagData);
   // Error Catcher
   } catch (err) {
@@ -75,7 +79,7 @@ router.put('/:id', async (req, res) => {
 
     // Success response
     return res.status(200).json({
-      message: `Updated id ${req.params.id}`,
+      message: `Updated tag id ${req.params.id}`,
       update: {
         new_tag: `${req.body.tag_name}`
       }
