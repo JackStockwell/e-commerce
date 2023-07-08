@@ -45,13 +45,17 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const updateCategory = await Category.update(req.params.id);
+    const updateCategory = await Category.update({
+      where: {
+        id: req.params.id
+      }
+    });
     res.status(200).json(updateCategory);
 
     if (!updateCategory) {
       res.status(404).json({ message: 'Error 404, no id found!'})
       return;
-    }
+    };
     
     return res.status(200).json(updateCategory);
 

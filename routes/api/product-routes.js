@@ -22,29 +22,29 @@ router.get('/', async (req, res) => {
         }
       ],
     });
-    res.status(200).json(productData)
+    return res.status(200).json(productData);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
-// get one product
+// GET one product by id
 router.get('/:id', async (req, res) => {
+  // Includes Category and Tag models
   try {
     const productData = await Product.findByPk(req.params.id, {
       include: [{model: Category}, {model: Tag}]
     });
-    res.status(200).json(productData);
 
+    // Check to see if there is an id match by checking to see if data was returned, will return 404 error
     if (!productData) {
       res.status(404).json({ message: 'Error 404, no id found!'})
       return;
     }
-    
     return res.status(200).json(productData);
-
+    
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
