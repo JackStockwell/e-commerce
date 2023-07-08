@@ -128,7 +128,10 @@ router.put('/:id', (req, res) => {
         });
       }
 
-      return res.json({product});
+      return res.json({
+        message: `Updated product id of \'${req.params.id}\'!`,
+        data: req.body
+      });
     })
     .catch((err) => {
       // console.log(err);
