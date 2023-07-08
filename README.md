@@ -8,6 +8,8 @@
 
 ## Screenshot
 
+![GIF of the app being used on Postman](./misc/assets/GET_requests.gif)
+
 ## Description
 
 Backend for a e-commerce API! A small but relatively simple complete API using expresss with the ability to create, read, update and delete products, tags or categories; while saved on a local MySQL database which allows for data to be managed using sequelize in JavaScript.
