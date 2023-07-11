@@ -27,7 +27,7 @@ I am now more comfortable using Sequelize to manage the CRUD process of an SQL s
 
 ## Installation 
 
-I would recommend watching my full guide [here](https://app.screencastify.com/manage/videos/gXUTcphsLDZWcojlea68) for a more streamlined experience. If not, see below.
+I would recommend watching my full guide [here](https://drive.google.com/file/d/1BGE3OoJyaMvSWbGLt0-vWxaRH8toKYov/view) for a more streamlined experience. If not, see below.
 
 ### Written Tutorial
 
