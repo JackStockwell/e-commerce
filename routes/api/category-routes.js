@@ -27,7 +27,6 @@ router.get('/:id', async (req, res) => {
     const categoryData = await Category.findByPk(req.params.id, {
       include: Product
     });
-    res.status(200).json(categoryData);
 
     // Checks to see if there is a record or not, if no record with id returns 404 error.
     if (!categoryData) {
